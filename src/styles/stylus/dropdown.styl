@@ -1,0 +1,73 @@
+.dd-wrapper
+  user-select: none
+  position: relative
+  width: 222px
+
+.dd-header
+  display: flex
+  align-items: center
+  justify-content: space-between
+  line-height: 38px
+  border: 1px solid rgb(223, 223, 223)
+  border-radius: 3px
+  cursor: default
+  position: relative
+  background-color: white
+
+  span
+    margin-right: 20px
+
+.dd-header-title
+  font-weight: 300
+  margin: 2px 20px
+  margin-right: 30px
+
+.angle-down
+  color: black
+  margin-right: 20px
+
+.dd-list
+  z-index: 10
+  position: absolute
+  width: 100%
+  border: 1px solid rgb(223, 223, 223)
+  border-top: none
+  border-bottom-right-radius: 3px
+  border-bottom-left-radius: 3px
+  background-color: white
+  box-shadow: 0 2px 5px -1px rgb(232, 232, 232)
+  font-weight: 700
+  padding: 15px 0
+  max-height: 215px
+  overflow-y: scroll
+  -webkit-overflow-scrolling: touch
+
+.dd-list-item
+  width: 100%
+  font-size: 1.5rem
+  padding: 8px 10px
+  line-height: 1.6rem
+  cursor: default
+  display: inline-block
+  white-space: nowrap
+  text-overflow: ellipsis
+
+  &.selected
+    color: white
+    background-color: #FFCC01
+
+  &:hover
+    color: white
+    background-color: #FFCC01
+
+.dd-wrapper-single
+  user-select: none
+  position: relative
+  width: 265px
+  .dd-header
+    border: 1px solid #CCCCCC
+    .dd-header-name
+      font-weight: 400
+  .dd-list
+    border: 1px solid #CCCCCC
+    border-top: none
