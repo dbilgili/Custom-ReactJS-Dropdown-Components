@@ -93,10 +93,10 @@ class App extends Component {
     })
   }
 
-  resetThenSet = (id, stateKey) => {
-    let fruits = [...this.state.fruit]
-    fruits.forEach(item => item.selected = false);
-    fruits[id].selected = true;
+  resetThenSet = (id, key) => {
+    let temp = [...this.state[key]]
+    temp.forEach(item => item.selected = false);
+    temp[id].selected = true;
   }
 
   render() {
