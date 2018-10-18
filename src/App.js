@@ -86,7 +86,7 @@ class App extends Component {
   }
 
   toggleSelected = (id, key) => {
-    let temp = [...this.state[key]]
+    let temp = JSON.parse(JSON.stringify(this.state[key]))
     temp[id].selected = !temp[id].selected
     this.setState({
       [key]: temp
@@ -94,9 +94,12 @@ class App extends Component {
   }
 
   resetThenSet = (id, key) => {
-    let temp = [...this.state[key]]
+    let temp = JSON.parse(JSON.stringify(this.state[key]))
     temp.forEach(item => item.selected = false);
     temp[id].selected = true;
+    this.setState({
+      [key]: temp
+    })
   }
 
   render() {
