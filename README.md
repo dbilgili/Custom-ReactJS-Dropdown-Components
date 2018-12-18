@@ -25,7 +25,7 @@ import {DropdownMultiple, Dropdown} from 'reactjs-dropdown-component';
 The structure of the state for the dropdown data should be as follows:
 
 ```javascript
-this.state = {
+state = {
   location: [
     {
       id: 0,
