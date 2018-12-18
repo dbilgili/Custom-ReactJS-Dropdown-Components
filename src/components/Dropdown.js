@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
-import onClickOutside from "react-onclickoutside";
-import '../styles/global.css';
+import '../style/global.styl'
 
 class Dropdown extends Component{
   constructor(props){
@@ -10,22 +9,39 @@ class Dropdown extends Component{
       listOpen: false,
       headerTitle: this.props.title
     }
+    this.close = this.close.bind(this)
   }
 
-  handleClickOutside(e){
+  componentDidUpdate(){
+    const { listOpen } = this.state
+    setTimeout(() => {
+      if(listOpen){
+        window.addEventListener('click', this.close)
+      }
+      else{
+        window.removeEventListener('click', this.close)
+      }
+    }, 0)
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('click', this.close)
+  }
+
+  close(timeOut){
     this.setState({
       listOpen: false
     })
   }
 
-  selectItem = (title, id, stateKey) => {
+  selectItem(title, id, stateKey){
     this.setState({
       headerTitle: title,
       listOpen: false
     }, this.props.resetThenSet(id, stateKey))
   }
 
-  toggleList = () => {
+  toggleList(){
     this.setState(prevState => ({
       listOpen: !prevState.listOpen
     }))
@@ -36,14 +52,14 @@ class Dropdown extends Component{
     const{listOpen, headerTitle} = this.state
     return(
       <div className="dd-wrapper">
-        <div className="dd-header" onClick={this.toggleList}>
+        <div className="dd-header" onClick={() => this.toggleList()}>
           <div className="dd-header-title">{headerTitle}</div>
           {listOpen
             ? <FontAwesome name="angle-up" size="2x"/>
             : <FontAwesome name="angle-down" size="2x"/>
           }
         </div>
-        {listOpen && <ul className="dd-list">
+        {listOpen && <ul className="dd-list" onClick={e => e.stopPropagation()}>
           {list.map((item)=> (
             <li className="dd-list-item" key={item.id} onClick={() => this.selectItem(item.title, item.id, item.key)}>{item.title} {item.selected && <FontAwesome name="check"/>}</li>
           ))}
@@ -53,4 +69,4 @@ class Dropdown extends Component{
   }
 }
 
-export default onClickOutside(Dropdown);
+export default Dropdown
