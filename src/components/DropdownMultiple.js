@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
-import '../style/global.styl'
+import '../styles/global.css'
 
 class DropdownMultiple extends Component{
   constructor(props){
