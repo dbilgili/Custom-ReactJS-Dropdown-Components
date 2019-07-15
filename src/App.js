@@ -86,10 +86,12 @@ class App extends Component {
   }
 
   toggleSelected = (id, key) => {
-    let temp = JSON.parse(JSON.stringify(this.state[key]))
-    temp[id].selected = !temp[id].selected
-    this.setState({
-      [key]: temp
+    this.setState((prevState) => {
+      let temp = prevState[key];
+      temp[id].selected = !temp[id].selected
+      return {
+        [key]: temp
+      }
     })
   }
 
