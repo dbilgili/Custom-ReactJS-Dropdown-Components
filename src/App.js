@@ -83,6 +83,7 @@ class App extends Component {
         }
       ]
     }
+    this.resetThenSet = this.resetThenSet.bind(this);
   }
 
   toggleSelected = (id, key) => {
