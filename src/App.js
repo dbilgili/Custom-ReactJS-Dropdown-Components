@@ -83,6 +83,7 @@ class App extends Component {
         }
       ]
     }
+    this.toggleSelected = this.toggleSelected.bind(this);
   }
 
   toggleSelected = (id, key) => {
