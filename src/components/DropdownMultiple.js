@@ -8,7 +8,6 @@ class DropdownMultiple extends Component{
     this.state = {
       listOpen: false,
       headerTitle: this.props.title,
-      timeOut: null
     }
     this.close = this.close.bind(this)
   }
@@ -29,7 +28,7 @@ class DropdownMultiple extends Component{
     window.removeEventListener('click', this.close)
   }
 
-  close(timeOut){
+  close(){
     this.setState({
       listOpen: false
     })
