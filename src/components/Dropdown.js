@@ -28,7 +28,7 @@ class Dropdown extends Component{
     window.removeEventListener('click', this.close)
   }
 
-  close(timeOut){
+  close(){
     this.setState({
       listOpen: false
     })
