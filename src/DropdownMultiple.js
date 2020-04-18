@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
-import '../styles/global.css'
+import './style/global.styl'
 
 class DropdownMultiple extends Component{
   constructor(props){
@@ -8,6 +8,7 @@ class DropdownMultiple extends Component{
     this.state = {
       listOpen: false,
       headerTitle: this.props.title,
+      timeOut: null
     }
     this.close = this.close.bind(this)
   }
@@ -28,7 +29,7 @@ class DropdownMultiple extends Component{
     window.removeEventListener('click', this.close)
   }
 
-  close(){
+  close(timeOut){
     this.setState({
       listOpen: false
     })

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import DropdownMultiple from './components/DropdownMultiple';
-import Dropdown from './components/Dropdown';
+import {DropdownMultiple, Dropdown} from 'reactjs-dropdown-component';
 
 class App extends Component {
     constructor(){

@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import Dropdown from './Dropdown';
+import DropdownMultiple from './DropdownMultiple';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export {Dropdown, DropdownMultiple}

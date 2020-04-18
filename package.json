@@ -1,25 +1,43 @@
 {
-  "name": "dropdown",
-  "homepage": "https://dbilgili.github.io/Custom-ReactJS-Dropdown-Components",
+  "name": "reactjs-dropdown-component",
   "version": "1.0.7",
-  "dependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-fontawesome": "^1.6.1",
-    "react-scripts": "1.1.5"
-  },
+  "description": "Single and multi select dropwdown menu components",
+  "main": "build/index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "author": "Dogacan Bilgili",
+  "keywords": [
+    "react",
+    "dropdown",
+    "menu"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components.git"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
-    "gh-pages": "^2.0.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^6.0.0",
-    "gulp-stylus": "^2.7.0"
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.5.1",
+    "css-loader": "^1.0.0",
+    "style-loader": "^0.23.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "react-fontawesome": "^1.6.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   }
 }
