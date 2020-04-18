@@ -28,6 +28,17 @@ class Dropdown extends Component{
     window.removeEventListener('click', this.close)
   }
 
+  componentDidMount(){
+    const {list} = this.props;
+    const selectedItem = list.filter(item => item.selected);
+
+    if(selectedItem.length){
+      this.setState({
+        headerTitle: selectedItem[0].title
+      })
+    }
+  }
+
   close(){
     this.setState({
       listOpen: false
