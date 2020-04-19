@@ -111,6 +111,18 @@ Finally use the components as follows:
 />
 ```
 
+Note that when multiple options are selected in __DropdownMultiple__, `titleHelper` value gets an `s` letter appended. If you want to use a custom plural title, define `titleHelperPlural` as well.
+
+```javascript
+<DropdownMultiple
+  titleHelper="Sted"
+  titleHelperPlural="Steder"
+  title="Velg sted"
+  list={this.state.location}
+  toggleItem={this.toggleSelected}
+/>
+```
+
 # Custom Styling
 
 Refer to the [following](https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components/blob/master/src/style/stylus/dropdown.styl) styling file for overriding the default styles. You can create your own styling file with the same class names in order to do your custom styling.
