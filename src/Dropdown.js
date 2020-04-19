@@ -63,16 +63,18 @@ class Dropdown extends Component{
     const{listOpen, headerTitle} = this.state
     return(
       <div className="dd-wrapper">
-        <div className="dd-header" onClick={() => this.toggleList()}>
+        <button className="dd-header" onClick={() => this.toggleList()}>
           <div className="dd-header-title">{headerTitle}</div>
           {listOpen
             ? <FontAwesome name="angle-up" size="2x"/>
             : <FontAwesome name="angle-down" size="2x"/>
           }
-        </div>
+        </button>
         {listOpen && <ul className="dd-list" onClick={e => e.stopPropagation()}>
           {list.map((item)=> (
-            <li className="dd-list-item" key={item.id} onClick={() => this.selectItem(item.title, item.id, item.key)}>{item.title} {item.selected && <FontAwesome name="check"/>}</li>
+            <button className="dd-list-item" key={item.id} onClick={() => this.selectItem(item.title, item.id, item.key)}>
+              {item.title} {item.selected && <FontAwesome name="check"/>}
+            </button>
           ))}
         </ul>}
       </div>
