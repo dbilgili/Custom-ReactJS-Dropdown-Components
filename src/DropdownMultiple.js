@@ -44,6 +44,9 @@ class DropdownMultiple extends Component{
       return {headerTitle: `${count} ${nextProps.titleHelper}`}
     }
     else if(count > 1){
+      if (nextProps.titleHelperPlural) {
+        return {headerTitle: `${count} ${nextProps.titleHelperPlural}`}
+      }
       return {headerTitle: `${count} ${nextProps.titleHelper}s`}
     }
   }
