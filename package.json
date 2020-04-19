@@ -1,12 +1,13 @@
 {
   "name": "reactjs-dropdown-component",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Single and multi select dropwdown menu components",
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "publish": "npm run build && npm publish"
   },
   "author": "Dogacan Bilgili",
   "keywords": [
