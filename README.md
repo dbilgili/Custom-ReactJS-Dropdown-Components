@@ -111,8 +111,6 @@ Finally use the components as follows:
 />
 ```
 
-Refer to the GitHub [repository](https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components) for the full code example.
-
 # Custom Styling
 
 Refer to the [following](https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components/blob/master/src/style/stylus/dropdown.styl) styling file for overriding the default styles. You can create your own styling file with the same class names in order to do your custom styling.
