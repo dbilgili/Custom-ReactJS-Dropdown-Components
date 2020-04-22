@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {DropdownMultiple, Dropdown} from 'reactjs-dropdown-component';
+import { DropdownMultiple, Dropdown } from 'reactjs-dropdown-component';
 
 class App extends Component {
     constructor(){
@@ -79,6 +79,24 @@ class App extends Component {
           title: 'Strawberry',
           selected: false,
           key: 'fruit'
+        },
+        {
+          id: 5,
+          title: 'Banana',
+          selected: false,
+          key: 'fruit'
+        },
+        {
+          id: 6,
+          title: 'Blueberry',
+          selected: false,
+          key: 'fruit'
+        },
+        {
+          id: 7,
+          title: 'Watermelon',
+          selected: false,
+          key: 'fruit'
         }
       ]
     }
@@ -103,7 +121,7 @@ class App extends Component {
     window.addEventListener('keydown', this.tabKeyPressed);
   }
 
-  toggleSelected = (id, key) => {
+  toggleItem = (id, key) => {
     let temp = JSON.parse(JSON.stringify(this.state[key]))
     temp[id].selected = !temp[id].selected
     this.setState({
@@ -125,15 +143,36 @@ class App extends Component {
       <div className="App">
         <p>Dropdown menu examples</p>
 
+        <h3>Regular</h3>
+
         <div className="wrapper">
           <DropdownMultiple
             titleHelper="Location"
             title="Select location"
             list={this.state.location}
-            toggleItem={this.toggleSelected}
+            toggleItem={this.toggleItem}
           />
 
           <Dropdown
+            title="Select fruit"
+            list={this.state.fruit}
+            resetThenSet={this.resetThenSet}
+          />
+        </div>
+
+        <h3>Searchable</h3>
+
+        <div className="wrapper">
+          <DropdownMultiple
+            searchable={["Search for location", "No matching location"]}
+            titleHelper="Location"
+            title="Select location"
+            list={this.state.location}
+            toggleItem={this.toggleItem}
+          />
+
+          <Dropdown
+            searchable={["Search for fruit", "No matching fruit"]}
             title="Select fruit"
             list={this.state.fruit}
             resetThenSet={this.resetThenSet}
