@@ -4,7 +4,9 @@ This package features two custom dropdown menu components for ReactJS.
 
 __Single-selection__       |  __Multi-selection__
 :-------------------------:|:-------------------------:
-![dd-single](https://user-images.githubusercontent.com/22943912/45922263-37477780-bec7-11e8-81dd-f85e53f8687b.gif)  |  ![dd-multiple](https://user-images.githubusercontent.com/22943912/45922265-40d0df80-bec7-11e8-9f6a-53eb8341592b.gif)
+<img src="https://user-images.githubusercontent.com/22943912/80020903-121f4e80-84da-11ea-847d-fca74bf64658.gif" width="250px"> |  <img src="https://user-images.githubusercontent.com/22943912/80020916-13507b80-84da-11ea-8dae-144dcc43df36.gif" width="250px">
+__Single-selection searchable__       |  __Multi-selection searchable__
+<img src="https://user-images.githubusercontent.com/22943912/80020914-13507b80-84da-11ea-8cce-0f9c515cdb71.gif" width="250px">  |  <img src="https://user-images.githubusercontent.com/22943912/80020910-12b7e500-84da-11ea-9f5f-0632c4db4126.gif" width="250px">
 
 # Installation
 
@@ -85,7 +87,7 @@ resetThenSet = (id, key) => {
 ```
 And this is for the multi selection dropdown:
 ```javascript
-toggleSelected = (id, key) => {
+toggleItem = (id, key) => {
   let temp = JSON.parse(JSON.stringify(this.state[key]));
   temp[id].selected = !temp[id].selected;
   this.setState({
@@ -107,7 +109,7 @@ Finally use the components as follows:
   titleHelper="Location"
   title="Select location"
   list={this.state.location}
-  toggleItem={this.toggleSelected}
+  toggleItem={this.toggleItem}
 />
 ```
 
@@ -119,10 +121,25 @@ Note that when multiple options are selected in __DropdownMultiple__, `titleHelp
   titleHelperPlural="Steder"
   title="Velg sted"
   list={this.state.location}
-  toggleItem={this.toggleSelected}
+  toggleItem={this.toggleItem}
 />
 ```
 
+## Search functionality
+
+Using `searchable` prop enables the search bar.
+Pass an array of strings corresponding to __place holder__ and __not found message__ respectively.
+
+```javascript
+<Dropdown
+  searchable={["Search for fruit", "No matching fruit"]}
+  title="Select fruit"
+  list={this.state.fruit}
+  resetThenSet={this.resetThenSet}
+/>
+```
+
+
 # Custom Styling
 
-Refer to the [following](https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components/blob/master/src/style/stylus/dropdown.styl) styling file for overriding the default styles. You can create your own styling file with the same class names in order to do your custom styling.
+Refer to the [following](https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components/blob/master/src/styles/dropdown.sass) styling file for overriding the default styles. You can create your own styling file with the same class names in order to do your custom styling.
