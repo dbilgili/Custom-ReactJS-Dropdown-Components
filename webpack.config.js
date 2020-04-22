@@ -1,41 +1,47 @@
-var path = require('path');
+const path = require('path');
+const autoprefixer = require('autoprefixer');
+
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /(node_modules|bower_components|build)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env']
-          }
-        }
+            presets: ['env'],
+          },
+        },
       },
       {
-        test: /\.styl$/,
+        test: /\.sass$/,
         use: [
+          'style-loader',
+          'css-loader',
           {
-            loader: "style-loader"
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer()],
+            },
           },
-          {
-            loader: "css-loader"
-          },
-          {
-            loader: "stylus-loader"
-          }
-        ]
-      }
-    ]
+          'resolve-url-loader',
+          'sass-loader',
+        ],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
   },
   externals: {
-    'react': 'commonjs react'
-  }
+    react: 'commonjs react',
+  },
 };

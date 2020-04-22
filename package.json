@@ -1,6 +1,6 @@
 {
   "name": "reactjs-dropdown-component",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Single and multi select dropwdown menu components",
   "main": "build/index.js",
   "scripts": {
@@ -25,20 +25,38 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "^9.7.6",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.5.1",
     "css-loader": "^1.0.0",
-    "style-loader": "^0.23.1",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "react-fontawesome": "^1.6.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
-  }
+    "react-dom": "^16.5.2",
+    "resolve-url-loader": "^3.1.1",
+    "sass-loader": "^7.3.1",
+    "style-loader": "^0.23.1",
+    "stylelint": "^13.3.3",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-order": "^4.0.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "react-fontawesome": "^1.7.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }
