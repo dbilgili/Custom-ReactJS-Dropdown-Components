@@ -1,6 +1,6 @@
 {
   "name": "reactjs-dropdown-component",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Single and multi select dropwdown menu components",
   "main": "build/index.js",
   "scripts": {
