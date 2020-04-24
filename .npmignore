@@ -1,6 +1,8 @@
 src
 example
-node_modules
 webpack.config.js
 .babelrc
 .gitignore
+.nvmrc
+.stylelintrc
+.eslintrc.json
