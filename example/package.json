@@ -7,7 +7,7 @@
     "react-dom": "^16.5.2",
     "react-fontawesome": "^1.6.1",
     "react-scripts": "1.1.5",
-    "reactjs-dropdown-component": "^1.0.7"
+    "reactjs-dropdown-component": "^1.1.3"
   },
   "scripts": {
     "start": "react-scripts start",
