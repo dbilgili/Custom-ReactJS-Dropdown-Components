@@ -87,8 +87,10 @@ resetThenSet = (id, key) => {
 ```
 And this is for the multi selection dropdown:
 ```javascript
-toggleItem = (id, key) => {
-  let temp = JSON.parse(JSON.stringify(this.state[key]));
+toggleItem = (item) => {
+  const { id, key } = item;
+  const temp = JSON.parse(JSON.stringify(this.state[key]));
+
   temp[id].selected = !temp[id].selected;
   this.setState({
     [key]: temp
