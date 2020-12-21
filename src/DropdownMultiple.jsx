@@ -11,19 +11,18 @@ class DropdownMultiple extends Component {
     const { title } = this.props;
 
     this.state = {
-      listOpen: false,
+      isListOpen: false,
       headerTitle: title,
       keyword: '',
     };
 
     this.searchField = React.createRef();
-    this.close = this.close.bind(this);
   }
 
   componentDidUpdate() {
-    const { listOpen } = this.state;
+    const { isListOpen } = this.state;
     setTimeout(() => {
-      if (listOpen) {
+      if (isListOpen) {
         window.addEventListener('click', this.close);
       } else {
         window.removeEventListener('click', this.close);
@@ -36,36 +35,43 @@ class DropdownMultiple extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-    const count = nextProps.list.filter((item) => item.selected).length;
+    const {
+      list,
+      title,
+      titleHelper,
+      titleHelperPlural
+    } = nextProps;
+
+    const count = list.filter((item) => item.selected).length;
 
     if (count === 0) {
-      return { headerTitle: nextProps.title };
+      return { headerTitle: title };
     }
     if (count === 1) {
-      return { headerTitle: `${count} ${nextProps.titleHelper}` };
+      return { headerTitle: `${count} ${titleHelper}` };
     }
     if (count > 1) {
-      if (nextProps.titleHelperPlural) {
-        return { headerTitle: `${count} ${nextProps.titleHelperPlural}` };
+      if (titleHelperPlural) {
+        return { headerTitle: `${count} ${titleHelperPlural}` };
       }
-      return { headerTitle: `${count} ${nextProps.titleHelper}s` };
+      return { headerTitle: `${count} ${titleHelper}s` };
     }
 
     return null;
   }
 
-  close() {
+  close = () => {
     this.setState({
-      listOpen: false,
+      isListOpen: false,
     });
   }
 
-  toggleList() {
+  toggleList = () => {
     this.setState((prevState) => ({
-      listOpen: !prevState.listOpen,
+      isListOpen: !prevState.isListOpen,
     }), () => {
       // eslint-disable-next-line react/destructuring-assignment
-      if (this.state.listOpen && this.searchField.current) {
+      if (this.state.isListOpen && this.searchField.current) {
         this.searchField.current.focus();
         this.setState({
           keyword: '',
@@ -74,16 +80,17 @@ class DropdownMultiple extends Component {
     });
   }
 
-  filterList(e) {
+  filterList = (e) => {
     this.setState({
       keyword: e.target.value.toLowerCase(),
     });
   }
 
-  listItems() {
+  listItems = () => {
     const { list, toggleItem, searchable } = this.props;
     const { keyword } = this.state;
-    let tempList = list;
+
+    let tempList = [...list];
 
     if (keyword.length) {
       tempList = list
@@ -103,7 +110,7 @@ class DropdownMultiple extends Component {
             type="button"
             className="dd-list-item"
             key={item.id}
-            onClick={() => toggleItem(item.id, item.key)}
+            onClick={() => toggleItem(item)}
           >
             {item.title}
             {' '}
@@ -118,22 +125,23 @@ class DropdownMultiple extends Component {
 
   render() {
     const { searchable } = this.props;
-    const { listOpen, headerTitle } = this.state;
+    const { isListOpen, headerTitle } = this.state;
     return (
       <div className="dd-wrapper">
         <button
           type="button"
           className="dd-header"
-          onClick={() => this.toggleList()}
+          onClick={this.toggleList}
         >
           <div className="dd-header-title">{headerTitle}</div>
-          {listOpen
+          {isListOpen
             ? <FontAwesome name="angle-up" size="2x" />
             : <FontAwesome name="angle-down" size="2x" />}
         </button>
-        {listOpen && (
+        {isListOpen && (
           <div
             role="list"
+            type="button"
             className={`dd-list ${searchable ? 'searchable' : ''}`}
             onClick={(e) => e.stopPropagation()}
           >

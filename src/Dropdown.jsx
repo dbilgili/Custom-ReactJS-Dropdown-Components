@@ -11,13 +11,12 @@ class Dropdown extends Component {
     const { title } = this.props;
 
     this.state = {
-      listOpen: false,
+      isListOpen: false,
       headerTitle: title,
       keyword: '',
     };
 
     this.searchField = React.createRef();
-    this.close = this.close.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps) {
@@ -34,10 +33,10 @@ class Dropdown extends Component {
   }
 
   componentDidUpdate() {
-    const { listOpen } = this.state;
+    const { isListOpen } = this.state;
 
     setTimeout(() => {
-      if (listOpen) {
+      if (isListOpen) {
         window.addEventListener('click', this.close);
       } else {
         window.removeEventListener('click', this.close);
@@ -49,28 +48,29 @@ class Dropdown extends Component {
     window.removeEventListener('click', this.close);
   }
 
-  close() {
+  close = () => {
     this.setState({
-      listOpen: false,
+      isListOpen: false,
     });
   }
 
-  selectItem(title, id, stateKey) {
+  selectItem = (item) => {
     const { resetThenSet } = this.props;
+    const { title, id, key } = item;
 
     this.setState({
       headerTitle: title,
-      listOpen: false,
-    }, resetThenSet(id, stateKey));
+      isListOpen: false,
+    }, () => resetThenSet(id, key));
   }
 
-  toggleList() {
+  toggleList = () => {
     this.setState((prevState) => ({
-      listOpen: !prevState.listOpen,
+      isListOpen: !prevState.isListOpen,
       keyword: '',
     }), () => {
       // eslint-disable-next-line react/destructuring-assignment
-      if (this.state.listOpen && this.searchField.current) {
+      if (this.state.isListOpen && this.searchField.current) {
         this.searchField.current.focus();
         this.setState({
           keyword: '',
@@ -79,17 +79,17 @@ class Dropdown extends Component {
     });
   }
 
-  filterList(e) {
+  filterList = (e) => {
     this.setState({
       keyword: e.target.value.toLowerCase(),
     });
   }
 
-  listItems() {
+  listItems = () => {
     const { list, searchable } = this.props;
     const { keyword } = this.state;
 
-    let tempList = list;
+    let tempList = [...list];
 
     if (keyword.length) {
       tempList = list
@@ -109,7 +109,7 @@ class Dropdown extends Component {
             type="button"
             className="dd-list-item"
             key={item.id}
-            onClick={() => this.selectItem(item.title, item.id, item.key)}
+            onClick={() => this.selectItem(item)}
           >
             {item.title}
             {' '}
@@ -124,25 +124,23 @@ class Dropdown extends Component {
 
   render() {
     const { searchable } = this.props;
-    const { listOpen, headerTitle } = this.state;
+    const { isListOpen, headerTitle } = this.state;
 
     return (
       <div className="dd-wrapper">
         <button
           type="button"
           className="dd-header"
-          onClick={() => this.toggleList()}
+          onClick={this.toggleList}
         >
           <div className="dd-header-title">{headerTitle}</div>
-          {listOpen
+          {isListOpen
             ? <FontAwesome name="angle-up" size="2x" />
             : <FontAwesome name="angle-down" size="2x" />}
         </button>
-        {listOpen && (
+        {isListOpen && (
           <div
-            role="list"
             className={`dd-list ${searchable ? 'searchable' : ''}`}
-            onClick={(e) => e.stopPropagation()}
           >
             {searchable
             && (
@@ -153,7 +151,10 @@ class Dropdown extends Component {
               onChange={(e) => this.filterList(e)}
             />
             )}
-            <div className="dd-scroll-list">
+            <div
+              role="list"
+              className="dd-scroll-list"
+            >
               {this.listItems()}
             </div>
           </div>
