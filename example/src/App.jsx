@@ -115,14 +115,16 @@ class App extends Component {
     }
   }
 
-  mouseClicked = (e) => {
+  mouseClicked = () => {
     document.querySelector('body').classList.add('noFocus');
     window.removeEventListener('mousedown', this.mouseClicked);
     window.addEventListener('keydown', this.tabKeyPressed);
   }
 
-  toggleItem = (id, key) => {
+  toggleItem = (item) => {
+    const { id, key } = item;
     const temp = JSON.parse(JSON.stringify(this.state[key]));
+
     temp[id].selected = !temp[id].selected;
     this.setState({
       [key]: temp,
