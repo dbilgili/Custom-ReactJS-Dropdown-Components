@@ -39,7 +39,7 @@ class DropdownMultiple extends Component {
       list,
       title,
       titleHelper,
-      titleHelperPlural
+      titleHelperPlural,
     } = nextProps;
 
     const count = list.filter((item) => item.selected).length;
@@ -110,7 +110,7 @@ class DropdownMultiple extends Component {
             type="button"
             className="dd-list-item"
             key={item.id}
-            onClick={() => toggleItem(item)}
+            onClick={() => toggleItem(item.id, item.key)}
           >
             {item.title}
             {' '}
