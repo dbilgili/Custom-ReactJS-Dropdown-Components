@@ -121,11 +121,11 @@ class App extends Component {
     window.addEventListener('keydown', this.tabKeyPressed);
   }
 
-  toggleItem = (item) => {
-    const { id, key } = item;
+  toggleItem = (id, key) => {
     const temp = JSON.parse(JSON.stringify(this.state[key]));
 
     temp[id].selected = !temp[id].selected;
+
     this.setState({
       [key]: temp,
     });
@@ -133,8 +133,10 @@ class App extends Component {
 
   resetThenSet = (id, key) => {
     const temp = JSON.parse(JSON.stringify(this.state[key]));
+
     temp.forEach((item) => item.selected = false);
     temp[id].selected = true;
+
     this.setState({
       [key]: temp,
     });
