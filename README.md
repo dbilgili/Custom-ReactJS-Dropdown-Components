@@ -77,23 +77,25 @@ Then you need to include a function to control the state of the parent component
 This is for the single selection dropdown:
 ```javascript
 resetThenSet = (id, key) => {
-  let temp = JSON.parse(JSON.stringify(this.state[key]));
-  temp.forEach(item => item.selected = false);
+  const temp = JSON.parse(JSON.stringify(this.state[key]));
+
+  temp.forEach((item) => item.selected = false);
   temp[id].selected = true;
+
   this.setState({
-    [key]: temp
+    [key]: temp,
   });
 }
 ```
 And this is for the multi selection dropdown:
 ```javascript
-toggleItem = (item) => {
-  const { id, key } = item;
+toggleItem = (id, key) => {
   const temp = JSON.parse(JSON.stringify(this.state[key]));
 
   temp[id].selected = !temp[id].selected;
+
   this.setState({
-    [key]: temp
+    [key]: temp,
   });
 }
 ```
