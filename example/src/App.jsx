@@ -5,98 +5,30 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      location: [
+      locations: [
         {
-          id: 0,
-          title: 'New York',
-          selected: false,
-          key: 'location',
+          label: 'New York',
+          value: 'newYork'
         },
         {
-          id: 1,
-          title: 'Dublin',
-          selected: false,
-          key: 'location',
+          label: 'Dublin',
+          value: 'dublin'
         },
         {
-          id: 2,
-          title: 'California',
-          selected: false,
-          key: 'location',
+          label: 'Istanbul',
+          value: 'istanbul'
         },
         {
-          id: 3,
-          title: 'Istanbul',
-          selected: false,
-          key: 'location',
+          label: 'California',
+          value: 'colifornia'
         },
         {
-          id: 4,
-          title: 'Izmir',
-          selected: false,
-          key: 'location',
+          label: 'Izmir',
+          value: 'izmir'
         },
         {
-          id: 5,
-          title: 'Oslo',
-          selected: false,
-          key: 'location',
-        },
-        {
-          id: 6,
-          title: 'Zurich',
-          selected: false,
-          key: 'location',
-        },
-      ],
-      fruit: [
-        {
-          id: 0,
-          title: 'Apple',
-          selected: false,
-          key: 'fruit',
-        },
-        {
-          id: 1,
-          title: 'Orange',
-          selected: false,
-          key: 'fruit',
-        },
-        {
-          id: 2,
-          title: 'Grape',
-          selected: false,
-          key: 'fruit',
-        },
-        {
-          id: 3,
-          title: 'Pomegranate',
-          selected: false,
-          key: 'fruit',
-        },
-        {
-          id: 4,
-          title: 'Strawberry',
-          selected: false,
-          key: 'fruit',
-        },
-        {
-          id: 5,
-          title: 'Banana',
-          selected: false,
-          key: 'fruit',
-        },
-        {
-          id: 6,
-          title: 'Blueberry',
-          selected: false,
-          key: 'fruit',
-        },
-        {
-          id: 7,
-          title: 'Watermelon',
-          selected: false,
-          key: 'fruit',
+          label: 'Oslo',
+          value: 'oslo'
         },
       ],
     };
@@ -121,28 +53,11 @@ class App extends Component {
     window.addEventListener('keydown', this.tabKeyPressed);
   }
 
-  toggleItem = (id, key) => {
-    const temp = JSON.parse(JSON.stringify(this.state[key]));
-
-    temp[id].selected = !temp[id].selected;
-
-    this.setState({
-      [key]: temp,
-    });
-  }
-
-  resetThenSet = (id, key) => {
-    const temp = JSON.parse(JSON.stringify(this.state[key]));
-
-    temp.forEach((item) => item.selected = false);
-    temp[id].selected = true;
-
-    this.setState({
-      [key]: temp,
-    });
-  }
+  onChange = (item, name) => { console.log(item, name) }
 
   render() {
+    const { locations, manualSelect } = this.state;
+
     return (
       <div className="App">
         <p>Dropdown menu examples</p>
@@ -151,16 +66,19 @@ class App extends Component {
 
         <div className="wrapper">
           <DropdownMultiple
-            titleHelper="Location"
-            title="Select location"
-            list={this.state.location}
-            toggleItem={this.toggleItem}
+            name="locations"
+            titleSingular="Location"
+            title="Select locations"
+            list={locations}
+            closeOnSelection
+            onChange={this.onChange}
           />
 
           <Dropdown
-            title="Select fruit"
-            list={this.state.fruit}
-            resetThenSet={this.resetThenSet}
+            name="location"
+            title="Select location"
+            list={locations}
+            onChange={this.onChange}
           />
         </div>
 
@@ -168,18 +86,20 @@ class App extends Component {
 
         <div className="wrapper">
           <DropdownMultiple
+            name="locations"
             searchable={['Search for location', 'No matching location']}
-            titleHelper="Location"
-            title="Select location"
-            list={this.state.location}
-            toggleItem={this.toggleItem}
+            titleSingular="Location"
+            title="Select locations"
+            list={locations}
+            onChange={this.onChange}
           />
 
           <Dropdown
-            searchable={['Search for fruit', 'No matching fruit']}
-            title="Select fruit"
-            list={this.state.fruit}
-            resetThenSet={this.resetThenSet}
+            name="location"
+            searchable={['Search for location', 'No matching location']}
+            title="Select location"
+            list={locations}
+            onChange={this.onChange}
           />
         </div>
       </div>
