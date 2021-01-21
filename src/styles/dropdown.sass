@@ -17,6 +17,7 @@
     cursor: pointer
 
     span
+      display: flex
       margin-right: 20px
 
   .dd-header-title
@@ -68,21 +69,19 @@
             background-color: transparent
             color: black
 
-        &.selected
-          background-color: #FFCC01
-          color: white
-
         &:hover
           background-color: #FFCC01
           color: white
+
+          & > span > svg > path
+            fill: white
 
     .dd-list-search-bar
       width: 100%
       height: 40px
       padding: 0 10px
-      border-top: none
-      border-right: none
-      border-left: none
+      border: none
+      border-bottom: 1px solid #DFDFDF
       font-size: inherit
 
       &::placeholder
