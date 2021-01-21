@@ -1,35 +1,33 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome';
+import PropTypes from 'prop-types';
+import ArrowDown from './assets/arrowDown.svg';
+import ArrowUp from './assets/arrowUp.svg';
+import Check from './assets/check.svg';
 import './styles/global.sass';
 
 class Dropdown extends Component {
   constructor(props) {
     super(props);
-    const { title } = this.props;
+    const { title, list } = this.props;
 
     this.state = {
       isListOpen: false,
-      headerTitle: title,
+      title,
+      selectedItem: null,
       keyword: '',
+      list,
     };
 
     this.searchField = React.createRef();
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    const { list, title } = nextProps;
+  componentDidMount() {
+    const { select } = this.props;
 
-    const selectedItem = list.filter((item) => item.selected);
-
-    if (selectedItem.length) {
-      return {
-        headerTitle: selectedItem[0].title,
-      };
+    if (select) {
+      this.selectSingleItem(select);
     }
-    return { headerTitle: title };
   }
 
   componentDidUpdate() {
@@ -48,20 +46,45 @@ class Dropdown extends Component {
     window.removeEventListener('click', this.close);
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { list } = nextProps;
+
+    if (JSON.stringify(list) !== JSON.stringify(prevState.list)) {
+      return { list };
+    }
+
+    return null;
+  }
+
   close = () => {
     this.setState({
       isListOpen: false,
     });
   }
 
+  selectSingleItem = (item) => {
+    const { list } = this.props;
+
+    const selectedItem = list.find((i) => i.value === item.value);
+    this.selectItem(selectedItem);
+  }
+
   selectItem = (item) => {
-    const { resetThenSet } = this.props;
-    const { title, id, key } = item;
+    const { label, value } = item;
+    const { list, selectedItem } = this.state;
+    const { name, onChange } = this.props;
+
+    let foundItem;
+
+    if (!label) {
+      foundItem = list.find((i) => i.value === item.value);
+    }
 
     this.setState({
-      headerTitle: title,
+      title: label || foundItem.label,
       isListOpen: false,
-    }, () => resetThenSet(id, key));
+      selectedItem: item,
+    }, () => selectedItem?.value !== value && onChange(item, name));
   }
 
   toggleList = () => {
@@ -69,7 +92,6 @@ class Dropdown extends Component {
       isListOpen: !prevState.isListOpen,
       keyword: '',
     }), () => {
-      // eslint-disable-next-line react/destructuring-assignment
       if (this.state.isListOpen && this.searchField.current) {
         this.searchField.current.focus();
         this.setState({
@@ -86,18 +108,24 @@ class Dropdown extends Component {
   }
 
   listItems = () => {
-    const { list, searchable } = this.props;
-    const { keyword } = this.state;
-
+    const {
+      id,
+      searchable,
+      checkIcon,
+      styles,
+    } = this.props;
+    const { listItem, listItemNoResult } = styles;
+    const { keyword, list } = this.state;
     let tempList = [...list];
+    const selectedItemValue = this.state.selectedItem?.value;
 
     if (keyword.length) {
       tempList = list
         .filter((item) => (
-          item.title.toLowerCase().slice(0, keyword.length).includes(keyword)
+          item.label.toLowerCase().slice(0, keyword.length).includes(keyword)
         )).sort((a, b) => {
-          if (a.title < b.title) { return -1; }
-          if (a.title > b.title) { return 1; }
+          if (a.label < b.label) { return -1; }
+          if (a.label > b.label) { return 1; }
           return 0;
         });
     }
@@ -107,53 +135,94 @@ class Dropdown extends Component {
         tempList.map((item) => (
           <button
             type="button"
-            className="dd-list-item"
-            key={item.id}
+            className={`dd-list-item ${id}`}
+            style={listItem}
+            key={item.value}
             onClick={() => this.selectItem(item)}
           >
-            {item.title}
+            {item.label}
             {' '}
-            {item.selected && <FontAwesome name="check" />}
+            {item.value === selectedItemValue && (
+              <span style={styles.checkIcon}>
+                {checkIcon || <Check />}
+              </span>
+            )}
           </button>
         ))
       );
     }
 
-    return <div className="dd-list-item no-result">{searchable[1]}</div>;
+    return (
+      <div
+        className={`dd-list-item no-result ${id}`}
+        style={listItemNoResult}
+      >
+        {searchable[1]}
+      </div>
+    );
   }
 
   render() {
-    const { searchable } = this.props;
-    const { isListOpen, headerTitle } = this.state;
+    const {
+      id,
+      searchable,
+      arrowUpIcon,
+      arrowDownIcon,
+      styles,
+    } = this.props;
+    const { isListOpen, title } = this.state;
+
+    const {
+      wrapper,
+      header,
+      headerTitle,
+      headerArrowUpIcon,
+      headerArrowDownIcon,
+      list,
+      listSearchBar,
+      scrollList,
+    } = styles;
 
     return (
-      <div className="dd-wrapper">
+      <div
+        className={`dd-wrapper ${id}`}
+        style={wrapper}
+      >
         <button
           type="button"
-          className="dd-header"
+          className={`dd-header ${id}`}
+          style={header}
           onClick={this.toggleList}
         >
-          <div className="dd-header-title">{headerTitle}</div>
+          <div
+            className={`dd-header-title ${id}`}
+            style={headerTitle}
+          >
+            {title}
+          </div>
           {isListOpen
-            ? <FontAwesome name="angle-up" size="2x" />
-            : <FontAwesome name="angle-down" size="2x" />}
+            ? <span style={headerArrowUpIcon}>{arrowUpIcon || <ArrowUp />}</span>
+            : <span style={headerArrowDownIcon}>{arrowDownIcon || <ArrowDown />}</span>}
         </button>
         {isListOpen && (
           <div
-            className={`dd-list ${searchable ? 'searchable' : ''}`}
+            className={`dd-list${searchable ? ' searchable' : ''} ${id}`}
+            style={list}
           >
             {searchable
             && (
             <input
               ref={this.searchField}
-              className="dd-list-search-bar"
+              className={`dd-list-search-bar ${id}`}
+              style={listSearchBar}
               placeholder={searchable[0]}
+              onClick={(e) => e.stopPropagation()}
               onChange={(e) => this.filterList(e)}
             />
             )}
             <div
-              role="list"
-              className="dd-scroll-list"
+              className={`dd-scroll-list ${id}`}
+              style={scrollList}
             >
               {this.listItems()}
             </div>
@@ -163,5 +232,44 @@ class Dropdown extends Component {
     );
   }
 }
+
+Dropdown.defaultProps = {
+  id: '',
+  select: undefined,
+  searchable: undefined,
+  styles: {},
+  arrowUpIcon: null,
+  arrowDownIcon: null,
+  checkIcon: null,
+};
+
+Dropdown.propTypes = {
+  id: PropTypes.string,
+  styles: PropTypes.shape({
+    wrapper: PropTypes.string,
+    header: PropTypes.string,
+    headerTitle: PropTypes.string,
+    headerArrowUpIcon: PropTypes.string,
+    headerArrowDownIcon: PropTypes.string,
+    checkIcon: PropTypes.string,
+    list: PropTypes.string,
+    listSearchBar: PropTypes.string,
+    scrollList: PropTypes.string,
+    listItem: PropTypes.string,
+    listItemNoResult: PropTypes.string,
+  }),
+  title: PropTypes.string.isRequired,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  })).isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  select: PropTypes.shape({ value: PropTypes.string }),
+  searchable: PropTypes.shape([PropTypes.string, PropTypes.string]),
+  checkIcon: PropTypes.elementType,
+  arrowUpIcon: PropTypes.elementType,
+  arrowDownIcon: PropTypes.elementType,
+};
 
 export default Dropdown;
