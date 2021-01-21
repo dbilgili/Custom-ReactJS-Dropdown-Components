@@ -1,5 +1,7 @@
 This package features two custom dropdown menu components for ReactJS.
 
+__WARNING:__ Breaking changes take effect from version `1.1.7`. If you are using any of the earlier versions, refer to the [previous README files](https://www.npmjs.com/package/reactjs-dropdown-component?activeTab=explore).
+
 [Online demo](https://dbilgili.github.io/Custom-ReactJS-Dropdown-Components/index.html)
 
 __Single-selection__       |  __Multi-selection__
@@ -10,122 +12,75 @@ __Single-selection searchable__       |  __Multi-selection searchable__
 
 # Installation
 
-    npm install reactjs-dropdown-component --save
-
-Make sure that you inserted the following `link` tag between the `<head></head>` tags inside `/public/index.html` of your react project. This is required for the `FontAwesome` component that the package depends on.
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+`npm install --save reactjs-dropdown-component`
 
 # Usage
 
-First, import the components:
+Import the component you want to use;
 
 ```javascript
-import {DropdownMultiple, Dropdown} from 'reactjs-dropdown-component';
+import { DropdownMultiple, Dropdown } from 'reactjs-dropdown-component';
 ```
 
 The structure of the state for the dropdown data should be as follows:
 
 ```javascript
 state = {
-  location: [
+  locations: [
     {
-      id: 0,
-      title: 'New York',
-      selected: false,
-      key: 'location'
+      label: 'New York',
+      value: 'newYork,
     },
     {
-      id: 1,
-      title: 'Dublin',
-      selected: false,
-      key: 'location'
+      label: 'Oslo',
+      value: 'oslo,
     },
     {
-      id: 2,
-      title: 'Istanbul',
-      selected: false,
-      key: 'location'
+      label: 'Istanbul',
+      value: 'istanbul,
     }
   ],
-  fruit: [
-    {
-      id: 0,
-      title: 'Apple',
-      selected: false,
-      key: 'fruit'
-    },
-    {
-      id: 1,
-      title: 'Orange',
-      selected: false,
-      key: 'fruit'
-    },
-    {
-      id: 2,
-      title: 'Strawberry',
-      selected: false,
-      key: 'fruit'
-    }
-  ]
 }
 ```
 
-Then you need to include a function to control the state of the parent component.
+Use a function to pass to `onChange` prop.
+For `<Dropdown>` component item is an object, whereas for `<DropdownMultiple>` it is an array of objects.
 
-
-This is for the single selection dropdown:
 ```javascript
-resetThenSet = (id, key) => {
-  const temp = JSON.parse(JSON.stringify(this.state[key]));
-
-  temp.forEach((item) => item.selected = false);
-  temp[id].selected = true;
-
-  this.setState({
-    [key]: temp,
-  });
-}
-```
-And this is for the multi selection dropdown:
-```javascript
-toggleItem = (id, key) => {
-  const temp = JSON.parse(JSON.stringify(this.state[key]));
-
-  temp[id].selected = !temp[id].selected;
-
-  this.setState({
-    [key]: temp,
-  });
-}
+  onChange = (item, name) => {
+    ...
+  }
 ```
 
 Finally use the components as follows:
 
 ```javascript
 <Dropdown
-  title="Select fruit"
-  list={this.state.fruit}
-  resetThenSet={this.resetThenSet}
+  name="location"
+  title="Select location"
+  list={this.state.locations}
+  onChange={this.onChange}
 />
 
 <DropdownMultiple
-  titleHelper="Location"
+  name="location"
   title="Select location"
-  list={this.state.location}
-  toggleItem={this.toggleItem}
+  titleSingular="location"
+  list={this.state.locations}
+  onChange={this.onChange}
 />
 ```
 
-Note that when multiple options are selected in __DropdownMultiple__, `titleHelper` value gets an `s` letter appended. If you want to use a custom plural title, define `titleHelperPlural` as well.
+Note that when multiple options are selected in `<DropdownMultiple>`, `titleSingular` value automatically becomes the plural form of the noun. If you want to use a custom plural title, define `titlePlural` as well.
 
 ```javascript
 <DropdownMultiple
-  titleHelper="Sted"
-  titleHelperPlural="Steder"
+  name="location"
   title="Velg sted"
-  list={this.state.location}
-  toggleItem={this.toggleItem}
+  titleSingular="Sted"
+  titlePlural="Steder"
+  list={this.state.locations}
+  onChange={this.onChange}
 />
 ```
 
@@ -136,14 +91,90 @@ Pass an array of strings corresponding to __place holder__ and __not found messa
 
 ```javascript
 <Dropdown
-  searchable={["Search for fruit", "No matching fruit"]}
-  title="Select fruit"
-  list={this.state.fruit}
-  resetThenSet={this.resetThenSet}
+  name="location"
+  title="Select location"
+  searchable={["Search for location", "No matching location"]}
+  list={this.state.locations}
+  onChange={this.onChange}
 />
 ```
 
+## Selecting item(s) by default
 
-# Custom Styling
+Use the `select` prop to define the initally selected item(s).
 
-Refer to the [following](https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components/blob/master/src/styles/dropdown.sass) styling file for overriding the default styles. You can create your own styling file with the same class names in order to do your custom styling.
+For `<Dropdown>`
+```javascript
+select={{value: 'istanbul'}}
+```
+
+For `<DropdownMultiple>`
+```javascript
+select={[{value: 'oslo'}, {value: 'istanbul'}]}
+```
+
+## Triggering select action
+
+Pass a ref and use this ref to call an internal function.
+
+For `<Dropdown>`
+```javascript
+<Dropdown
+  ref={this.dropdownRef}
+  ...
+/>
+
+this.dropdownRef.current.selectSingleItem({value: 'oslo'})
+```
+
+For `<DropdownMultiple>`
+```javascript
+<DropdownMultiple
+  ref={this.dropdownRef}
+  ...
+/>
+
+// Then call
+this.dropdownRef.current.selectMultipleItems([
+  {value: 'istanbul'}
+  {value: 'oslo'},
+])
+```
+
+## Custom styling
+
+Use the following keys in an object passed to `styles` prop
+
+```javascript
+wrapper
+header
+headerTitle
+headerArrowUpIcon
+headerArrowDownIcon
+checkIcon
+list
+listSearchBar
+scrollList
+listItem
+listItemNoResult
+```
+
+Example:
+
+```javascript
+<Dropdown
+  name="location"
+  title="Select location"
+  list={this.state.locations}
+  onChange={this.onChange}
+  styles={{
+    headerTitle: { color: 'red' }
+  }}
+/>
+```
+
+Note that `styles` prop is meant for basic styling. Use stylesheet by targeting the specific [class names](https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components/blob/master/src/styles/dropdown.sass) for more complicated stylings.
+
+Use `id` prop to set an additional class name to every element in the dropdown menu. That way you can style multiple dropdown menus with different stylings rules.
+
+In order to define your own arrow and check icons, use `arrowUpIcon`, `arrowDownIcon` and `checkIcon` props. These props accept an element type.
