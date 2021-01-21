@@ -70,7 +70,6 @@ class App extends Component {
             titleSingular="Location"
             title="Select locations"
             list={locations}
-            closeOnSelection
             onChange={this.onChange}
           />
 
