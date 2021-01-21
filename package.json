@@ -53,6 +53,8 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "pluralize": "^8.0.0",
+    "prop-types": "^15.7.2",
     "react-fontawesome": "^1.7.1"
   },
   "browserslist": [
