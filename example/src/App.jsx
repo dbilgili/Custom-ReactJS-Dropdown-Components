@@ -8,27 +8,27 @@ class App extends Component {
       locations: [
         {
           label: 'New York',
-          value: 'newYork'
+          value: 'newYork',
         },
         {
           label: 'Dublin',
-          value: 'dublin'
+          value: 'dublin',
         },
         {
           label: 'Istanbul',
-          value: 'istanbul'
+          value: 'istanbul',
         },
         {
           label: 'California',
-          value: 'colifornia'
+          value: 'colifornia',
         },
         {
           label: 'Izmir',
-          value: 'izmir'
+          value: 'izmir',
         },
         {
           label: 'Oslo',
-          value: 'oslo'
+          value: 'oslo',
         },
       ],
     };
@@ -53,10 +53,10 @@ class App extends Component {
     window.addEventListener('keydown', this.tabKeyPressed);
   }
 
-  onChange = (item, name) => { console.log(item, name) }
+  onChange = (item, name) => { console.log(item, name); }
 
   render() {
-    const { locations, manualSelect } = this.state;
+    const { locations } = this.state;
 
     return (
       <div className="App">
