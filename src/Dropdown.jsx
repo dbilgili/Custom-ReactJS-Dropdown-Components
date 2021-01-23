@@ -62,6 +62,17 @@ class Dropdown extends Component {
     });
   }
 
+  clearSelection = () => {
+    const { name, title, onChange } = this.props;
+
+    this.setState({
+      selectedItem: null,
+      title,
+    }, () => {
+      onChange(null, name);
+    });
+  }
+
   selectSingleItem = (item) => {
     const { list } = this.props;
 

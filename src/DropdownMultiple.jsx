@@ -65,6 +65,28 @@ class DropdownMultiple extends Component {
     });
   }
 
+  selectAll = () => {
+    const { name, onChange } = this.props;
+
+    this.setState((prevState) => ({
+      selectedItems: prevState.list,
+    }), () => {
+      this.handleTitle();
+      onChange(this.state.selectedItems, name);
+    });
+  }
+
+  deselectAll = () => {
+    const { name, onChange } = this.props;
+
+    this.setState({
+      selectedItems: [],
+    }, () => {
+      this.handleTitle();
+      onChange(this.state.selectedItems, name);
+    });
+  }
+
   selectMultipleItems = (items) => {
     const { list } = this.state;
 
