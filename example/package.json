@@ -5,9 +5,8 @@
   "dependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-fontawesome": "^1.6.1",
     "react-scripts": "1.1.5",
-    "reactjs-dropdown-component": "^1.1.6"
+    "reactjs-dropdown-component": "^1.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
