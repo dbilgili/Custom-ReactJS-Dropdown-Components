@@ -22,6 +22,32 @@ Import the component you want to use;
 import { DropdownMultiple, Dropdown } from 'reactjs-dropdown-component';
 ```
 
+If you are using NextJS, import them dynamically instead;
+
+```javascript
+import dynamic from 'next/dynamic';
+
+const Dropdown = dynamic(
+  async () => {
+    const module = await import('reactjs-dropdown-component');
+    const DD = module.Dropdown;
+
+    return ({ forwardedRef, ...props }) => <DD ref={forwardedRef} {...props} />;
+  },
+  { ssr: false },
+);
+
+const DropdownMultiple = dynamic(
+  async () => {
+    const module = await import('reactjs-dropdown-component');
+    const DDM = module.DropdownMultiple;
+
+    return ({ forwardedRef, ...props }) => <DDM ref={forwardedRef} {...props} />;
+  },
+  { ssr: false },
+);
+```
+
 The structure of the state for the dropdown data should be as follows:
 
 ```javascript
@@ -113,9 +139,9 @@ For `<DropdownMultiple>`
 select={[{value: 'oslo'}, {value: 'istanbul'}]}
 ```
 
-## Triggering select action
+## Calling internal functions
 
-Pass a ref and use this ref to call an internal function.
+Pass a ref and use it to call the internal functions.
 
 For `<Dropdown>`
 ```javascript
@@ -124,7 +150,8 @@ For `<Dropdown>`
   ...
 />
 
-this.dropdownRef.current.selectSingleItem({value: 'oslo'})
+this.dropdownRef.current.selectSingleItem({ value: 'oslo' });
+this.dropdownRef.current.clearSelection();
 ```
 
 For `<DropdownMultiple>`
@@ -134,11 +161,13 @@ For `<DropdownMultiple>`
   ...
 />
 
-// Then call
 this.dropdownRef.current.selectMultipleItems([
-  {value: 'istanbul'}
-  {value: 'oslo'},
-])
+  { value: 'istanbul' }
+  { value: 'oslo' },
+]);
+
+this.dropdownRef.current.selectAll();
+this.dropdownRef.current.deselectAll();
 ```
 
 ## Custom styling
