@@ -1,6 +1,6 @@
 {
   "name": "reactjs-dropdown-component",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Single and multi select dropwdown menu components",
   "main": "build/index.js",
   "scripts": {
@@ -54,8 +54,7 @@
   },
   "dependencies": {
     "pluralize": "^8.0.0",
-    "prop-types": "^15.7.2",
-    "react-fontawesome": "^1.7.1"
+    "prop-types": "^15.7.2"
   },
   "browserslist": [
     "> 1%",
