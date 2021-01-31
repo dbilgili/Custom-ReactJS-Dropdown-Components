@@ -6,7 +6,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "1.1.5",
-    "reactjs-dropdown-component": "^1.1.8"
+    "reactjs-dropdown-component": "^1.1.9"
   },
   "scripts": {
     "start": "react-scripts start",
