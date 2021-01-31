@@ -131,14 +131,7 @@ class Dropdown extends Component {
     const selectedItemValue = this.state.selectedItem?.value;
 
     if (keyword.length) {
-      tempList = list
-        .filter((item) => (
-          item.label.toLowerCase().slice(0, keyword.length).includes(keyword)
-        )).sort((a, b) => {
-          if (a.label < b.label) { return -1; }
-          if (a.label > b.label) { return 1; }
-          return 0;
-        });
+      tempList = list.filter((item) => item.label.toLowerCase().includes(keyword.toLowerCase()));
     }
 
     if (tempList.length) {
