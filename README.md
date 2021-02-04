@@ -48,25 +48,23 @@ const DropdownMultiple = dynamic(
 );
 ```
 
-The structure of the state for the dropdown data should be as follows:
+The shape of the objects in the data array should be as follows:
 
 ```javascript
-state = {
-  locations: [
-    {
-      label: 'New York',
-      value: 'newYork,
-    },
-    {
-      label: 'Oslo',
-      value: 'oslo,
-    },
-    {
-      label: 'Istanbul',
-      value: 'istanbul,
-    }
-  ],
-}
+const locations = [
+  {
+    label: 'New York',
+    value: 'newYork',
+  },
+  {
+    label: 'Oslo',
+    value: 'oslo',
+  },
+  {
+    label: 'Istanbul',
+    value: 'istanbul',
+  }
+];
 ```
 
 Use a function to pass to `onChange` prop.
@@ -84,7 +82,7 @@ Finally use the components as follows:
 <Dropdown
   name="location"
   title="Select location"
-  list={this.state.locations}
+  list={locations}
   onChange={this.onChange}
 />
 
@@ -92,7 +90,7 @@ Finally use the components as follows:
   name="location"
   title="Select location"
   titleSingular="location"
-  list={this.state.locations}
+  list={locations}
   onChange={this.onChange}
 />
 ```
@@ -105,7 +103,7 @@ Note that when multiple options are selected in `<DropdownMultiple>`, `titleSing
   title="Velg sted"
   titleSingular="Sted"
   titlePlural="Steder"
-  list={this.state.locations}
+  list={locations}
   onChange={this.onChange}
 />
 ```
@@ -120,7 +118,7 @@ Pass an array of strings corresponding to __place holder__ and __not found messa
   name="location"
   title="Select location"
   searchable={["Search for location", "No matching location"]}
-  list={this.state.locations}
+  list={locations}
   onChange={this.onChange}
 />
 ```
@@ -194,7 +192,7 @@ Example:
 <Dropdown
   name="location"
   title="Select location"
-  list={this.state.locations}
+  list={locations}
   onChange={this.onChange}
   styles={{
     headerTitle: { color: 'red' }
