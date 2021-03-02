@@ -67,6 +67,21 @@ const locations = [
 ];
 ```
 
+Optionally, the object can contain the "disabled" key to disable the item
+```javascript
+const locations = [
+  {
+    label: 'New York',
+    value: 'newYork',
+  },
+  {
+    label: 'Oslo',
+    value: 'oslo',
+    disabled: true,
+  },
+];
+```
+
 Use a function to pass to `onChange` prop.
 For `<Dropdown>` component item is an object, whereas for `<DropdownMultiple>` it is an array of objects.
 
