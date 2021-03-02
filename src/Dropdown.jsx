@@ -139,10 +139,15 @@ class Dropdown extends Component {
         tempList.map((item) => (
           <button
             type="button"
-            className={`dd-list-item ${id}`}
+            className={
+              `dd-list-item ${id} ${
+                item.disabled ? 'dd-list-item--disabled' : ''
+              }`
+            }
             style={listItem}
             key={item.value}
             onClick={() => this.selectItem(item)}
+            disabled={item.disabled || false}
           >
             {item.label}
             {' '}
